@@ -8,6 +8,7 @@ from launch.event_handlers import OnProcessStart
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 
+
 def generate_launch_description():
     sensor_pkg = get_package_share_directory('sensor_fusion')
 
@@ -41,15 +42,14 @@ def generate_launch_description():
             )
 
     return LaunchDescription(
-        [navsat_node]
-        # [ekf_node,
-        #     RegisterEventHandler(
-        #         OnProcessStart(
-        #             target_action = ekf_node,
-        #             on_start=[LogInfo(msg="EKF Node Started!!!"),
-        #                                 navsat_node]
-        #         )
-        #     )
+        [ekf_node
+            # RegisterEventHandler(
+            #     OnProcessStart(
+            #         target_action = ekf_node,
+            #         on_start=[LogInfo(msg="EKF Node Started!!!"),
+            #                             navsat_node]
+            #     )
+            # )
             
-        # ]
+        ]
     )
