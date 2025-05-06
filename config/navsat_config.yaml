@@ -5,16 +5,16 @@ navsat_transform_node:
     # delay: 0.0
     delay: 3.0
     magnetic_declination_radians: 0.0  # Adjust for your location
-    yaw_offset: 1.5707963  # offset is 0 when facing east
+    yaw_offset: 1.5707963  # offset is 0 when facing east tried yaw offset 0 and seemed to be worse
     # witmotion imu used is in northeast sky coordinate (NED)
     # ie. positive x-points north therefore need offset
     # yaw_offset: 0.0  # Since version 2.2.1 navsat_transform_node moved to standard where all heading data assumed to 
     # start w/ zero point facing east. 
     zero_altitude: true
-    # broadcast_cartesian_transform : true
+    broadcast_cartesian_transform : true
     publish_filtered_gps: true
-    # use_odometry_yaw: true  # Use IMU yaw to align GPS
-    use_odometry_yaw: false  # Use IMU yaw to align GPS
+    use_odometry_yaw: true  # Use IMU yaw to align GPS
+    # use_odometry_yaw: false  # Use IMU yaw to align GPS
     wait_for_datum: false # if true need to pre set position
 
 ekf_filter_node_odom:
@@ -57,9 +57,9 @@ ekf_filter_node_odom:
 
     use_control: false
 
-    process_noise_covariance: [1e-3, 1e-3, 1e-3, 0.3, 0.3, 0.01, 0.5, 0.5, 0.1, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3]
+    # process_noise_covariance: [1e-3, 1e-3, 1e-3, 0.3, 0.3, 0.01, 0.5, 0.5, 0.1, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3]
 
-    initial_estimate_covariance: [1e-9, 1e-9, 1e-9, 1.0, 1.0, 1e-9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    # initial_estimate_covariance: [1e-9, 1e-9, 1e-9, 1.0, 1.0, 1e-9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
 
 ekf_filter_node_map:
@@ -71,7 +71,7 @@ ekf_filter_node_map:
     transform_timeout: 0.0
     print_diagnostics: true
     debug: false
-    # publish_tf: true
+    publish_tf: true
 
     map_frame: map
     odom_frame: odom
@@ -105,11 +105,16 @@ ekf_filter_node_map:
     odom1_relative: false
 
     imu0: imu/data
+    # imu0_config: [false, false, false,
+    #               false,  false,  true,
+    #               false, false, false,
+    #               false,  false,  false,
+    #               false,  false,  false]
     imu0_config: [false, false, false,
-                  false,  false,  true,
+                  true,  true,  false,
                   false, false, false,
-                  false,  false,  false,
-                  false,  false,  false]
+                  true,  true,  true,
+                  true,  true,  true]
     imu0_differential: false  # If using a real robot you might want to set this to true, since usually absolute measurements from real imu's are not very accurate
     # imu0_differential: true  
     imu0_relative: false
@@ -117,8 +122,8 @@ ekf_filter_node_map:
     # imu0_remove_gravitational_acceleration: true
     imu0_remove_gravitational_acceleration: false
 
-    use_control: false
+    # use_control: false
 
-    process_noise_covariance: [1.0, 1.0, 1e-3, 0.3, 0.3, 0.01, 0.5, 0.5, 0.1, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3]
+    # process_noise_covariance: [1.0, 1.0, 1e-3, 0.3, 0.3, 0.01, 0.5, 0.5, 0.1, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3]
 
-    initial_estimate_covariance: [1.0, 1.0, 1e-9, 1.0, 1.0, 1e-9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    # initial_estimate_covariance: [1.0, 1.0, 1e-9, 1.0, 1.0, 1e-9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
